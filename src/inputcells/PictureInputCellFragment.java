@@ -24,7 +24,7 @@ import android.widget.Toast;
 public class PictureInputCellFragment extends Fragment{
 	
 	final int REQUESTCODE_CIMERA=1;
-	final int REQUESTCODE_ALBUM=1;
+	final int REQUESTCODE_ALBUM=2;
 	
 	ImageView imageView;
 	TextView labelText;
@@ -100,9 +100,7 @@ public class PictureInputCellFragment extends Fragment{
 			
 			Bitmap bmp=(Bitmap)data.getExtras().get("data");
 			imageView.setImageBitmap(bmp);
-			
-			//Log.d("camera caputre", data.getDataString());
-			//Toast.makeText(getActivity(), data.getDataString(), Toast.LENGTH_LONG).show();
+
 		}else if(requestCode==REQUESTCODE_ALBUM){
 			try {
 				Bitmap bmp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
