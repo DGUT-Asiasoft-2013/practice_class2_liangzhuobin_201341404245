@@ -1,38 +1,42 @@
-package com.example.hello;
+package fragments;
 
-import android.app.Activity;
+
+
+import com.example.hello.R;
+
+import android.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import inputcells.SimpleTextInputCellFragment;
 
-public class RegisterActivity extends Activity {
-	
+public class PasswordRecoverStep2Fragment extends Fragment {
 	SimpleTextInputCellFragment fragInputCellAccount;
-	SimpleTextInputCellFragment fragInputCellParent;
 	SimpleTextInputCellFragment fragInputCellPassword;
 	SimpleTextInputCellFragment fragInputCellPasswordRepeat;
-
+	View view;
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_register);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
-		fragInputCellAccount=(SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.intput_account);
-		fragInputCellParent=(SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_parent);
+		if(view==null){
+			view = inflater.inflate(R.layout.fragment_password_recover_step2, null);
+		}
+		fragInputCellAccount=(SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_verify);
 		fragInputCellPassword=(SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_password);
 		fragInputCellPasswordRepeat=(SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_password_repeat);
 		
-		
+		return view;
 	}
-	
+
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 		
 		fragInputCellAccount.setLabelText("用户名");
 		fragInputCellAccount.setHintText("请输入用户名");
 		
-		fragInputCellParent.setLabelText("电子邮箱");
-		fragInputCellParent.setHintText("请输入电子邮箱");
 		
 		fragInputCellPassword.setLabelText("密码");
 		fragInputCellPassword.setHintText("请输入密码");
