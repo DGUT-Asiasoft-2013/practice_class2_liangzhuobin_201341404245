@@ -1,13 +1,22 @@
 package pages;
 
+import java.util.Random;
+
+import com.example.hello.FeedContentActivity;
+import com.example.hello.PasswordRecoverActivity;
 import com.example.hello.R;
 
+import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,6 +24,8 @@ import android.widget.TextView;
 public class FeedListFragment extends Fragment {
 	View view;
 	ListView listView;
+	String[] data;
+	int onClickItem;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,6 +36,25 @@ public class FeedListFragment extends Fragment {
 			
 			listView=(ListView)view.findViewById(R.id.list);
 			listView.setAdapter(listAdapter);
+			
+			Random rand=new Random();
+			data=new String[10+rand.nextInt()%20];
+			
+			for(int i=0;i<data.length;i++){
+				data[i]="THIS ROW IS"+rand.nextInt();
+			}
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+				
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					onClickItem=position;
+					onClickActivity();					
+				}
+
+			});
+
+			
 			
 		}
 		
@@ -45,8 +75,11 @@ public class FeedListFragment extends Fragment {
 				view=convertView;
 			}
 			
+			
+			
+			
 			TextView text1=(TextView)view.findViewById(android.R.id.text1);
-			text1.setText("THIS IS ROW"+position);
+			text1.setText(data[position]);
 			return view;
 		}
 		
@@ -65,7 +98,14 @@ public class FeedListFragment extends Fragment {
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return 20;
+			return data==null ? 0:data.length;
 		}
+				
 	};
+	
+	void onClickActivity(){
+		Intent itnt = new Intent(getActivity(), FeedContentActivity.class);
+		itnt.putExtra("text", data[onClickItem]);
+		startActivity(itnt);
+	}
 }

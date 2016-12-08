@@ -38,6 +38,15 @@ public class MainTabbarFragment extends Fragment {
 			});			
 		}
 		
+		btnNew.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				onNewClicked();
+				
+			}
+		});
+		
 		return view;
 	}
 	
@@ -76,4 +85,19 @@ public class MainTabbarFragment extends Fragment {
 		}
 
 	}
+	public static interface OnNewClickedListener{
+		void onNewClicked();
+	}
+	
+	OnNewClickedListener onNewClickedListener;
+
+	public void setOnNewClickedListener(OnNewClickedListener listener){
+		this.onNewClickedListener = listener;
+	}
+	
+	void onNewClicked(){
+		if(onNewClickedListener!=null)
+			onNewClickedListener.onNewClicked();
+	}
+	
 }

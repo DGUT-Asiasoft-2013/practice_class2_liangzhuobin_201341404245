@@ -6,6 +6,8 @@
 
     
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-sdk
         android:minSdkVersion="19"
         android:targetSdkVersion="19" />
@@ -43,6 +45,16 @@
         
         <activity 
             android:name="com.example.hello.PasswordRecoverActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar">           
+        </activity>
+        
+        <activity 
+            android:name="com.example.hello.FeedContentActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar">           
+        </activity>
+        
+        <activity 
+            android:name="com.example.hello.NewContentActivity"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar">           
         </activity>
     </application>
