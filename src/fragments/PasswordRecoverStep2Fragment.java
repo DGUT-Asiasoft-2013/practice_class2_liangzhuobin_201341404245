@@ -4,6 +4,7 @@ package fragments;
 
 import com.example.hello.R;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,8 +28,43 @@ public class PasswordRecoverStep2Fragment extends Fragment {
 		fragInputCellPassword=(SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_password);
 		fragInputCellPasswordRepeat=(SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_password_repeat);
 		
+		
+		view.findViewById(R.id.btn_submit).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				onSubmitClicked();
+				
+			}
+		});
 		return view;
 	}
+	
+	public String getText(){
+		return fragInputCellPassword.getText();
+	}
+	
+	public static interface OnSubmitClickedListener{
+		void onSubmitClicked();
+	}
+	
+	OnSubmitClickedListener onSubmitClickedListener;
+	
+	void onSubmitClicked(){
+		if(fragInputCellPassword.getText().equals(fragInputCellPasswordRepeat.getText())){
+			if(onSubmitClickedListener!=null)
+				onSubmitClickedListener.onSubmitClicked();
+		}else{
+			new AlertDialog.Builder(getActivity())
+			.setMessage("ÃÜÂë²»Ò»ÖÂ")
+			.show();
+		}
+	}
+	
+	
+	
+	
+	
 
 	@Override
 	public void onResume() {

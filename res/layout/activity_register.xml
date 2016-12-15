@@ -30,18 +30,26 @@
               tools:layout="@layout/fragment_inputcell_simpletext"/>
           
           <fragment 
-              android:id="@+id/input_parent"
+              android:id="@+id/intput_name"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               class="inputcells.SimpleTextInputCellFragment"
               tools:layout="@layout/fragment_inputcell_simpletext"/>
           
           <fragment 
+              android:id="@+id/input_email_address"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              class="inputcells.SimpleTextInputCellFragment"
+              tools:layout="@layout/fragment_inputcell_simpletext"/>
+          
+          <fragment
               android:id="@+id/input_password"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               class="inputcells.SimpleTextInputCellFragment"
-              tools:layput="@layout/fragment_inputcell_simpletext"/>
+              tools:layout="@layout/fragment_inputcell_simpletext"
+              tools:layput="@layout/fragment_inputcell_simpletext" />
             
           <fragment 
               android:id="@+id/input_password_repeat"

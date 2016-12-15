@@ -2,10 +2,15 @@ package com.example.hello;
 
 import java.io.IOException;
 
+import com.example.hello.BootActivity;
+import com.example.hello.LoginActivity;
+import com.example.hello.api.Server;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -39,31 +44,29 @@ public class BootActivity extends Activity {
 //		},1000);
 		
 		
-		OkHttpClient client=new OkHttpClient();
-		Request request =new Request.Builder()
-				.url("http://172.27.0.14:8080/menbercenter/api/hello")
+		OkHttpClient client = Server.getSharedClient();
+		
+		Request request = Server.requestBuilderWithApi("hello")
 				.method("GET", null)
 				.build();
 		
 		client.newCall(request).enqueue(new Callback() {
-			
 			@Override
 			public void onResponse(Call arg0, final Response arg1) throws IOException {
+				Log.d("response", arg1.toString());
+				
 				BootActivity.this.runOnUiThread(new Runnable() {
 					
 					@Override
 					public void run() {
 						try {
-							Toast.makeText(BootActivity.this, arg1.body().string(),Toast.LENGTH_SHORT ).show();
-							
-						} catch (Exception e) {
+							Toast.makeText(BootActivity.this, arg1.body().string(), Toast.LENGTH_SHORT).show();
+						} catch (IOException e) {
 							e.printStackTrace();
 						}
 						startLoginActivity();
-						
 					}
 				});
-				
 				
 			}
 			
@@ -73,18 +76,17 @@ public class BootActivity extends Activity {
 					
 					@Override
 					public void run() {
-						Toast.makeText(BootActivity.this, arg1.getLocalizedMessage(),Toast.LENGTH_SHORT ).show();
-						
+						Toast.makeText(BootActivity.this, arg1.getLocalizedMessage(), Toast.LENGTH_SHORT).show();						
 					}
 				});
 				
 			}
 		});
-	
 	}
 	
+	
 	void startLoginActivity(){
-		Intent itnt=new Intent(this,LoginActivity.class);
+		Intent itnt = new Intent(this, LoginActivity.class);
 		startActivity(itnt);
 		finish();
 	}

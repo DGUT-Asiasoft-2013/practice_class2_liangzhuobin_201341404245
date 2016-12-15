@@ -1,6 +1,8 @@
 package inputcells;
 
 
+import java.io.ByteArrayOutputStream;
+
 import com.example.hello.R;
 
 import android.app.Activity;
@@ -9,6 +11,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +32,7 @@ public class PictureInputCellFragment extends Fragment{
 	ImageView imageView;
 	TextView labelText;
 	TextView hintText;
+	byte[] pngData;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,6 +96,13 @@ public class PictureInputCellFragment extends Fragment{
 				
 	}
 		
+
+	void saveBitmap(Bitmap bmp) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		bmp.compress(CompressFormat.PNG, 100, baos);
+		pngData = baos.toByteArray();
+	}
+	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode==Activity.RESULT_CANCELED) return;
@@ -105,6 +116,7 @@ public class PictureInputCellFragment extends Fragment{
 			try {
 				Bitmap bmp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
 				imageView.setImageBitmap(bmp);
+				saveBitmap(bmp);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -117,5 +129,10 @@ public class PictureInputCellFragment extends Fragment{
 	
 	public void setHintText(String hintText){
 		this.hintText.setText(hintText);
+	}
+
+
+	public byte[] getPngData() {
+		return pngData;
 	}
 }
